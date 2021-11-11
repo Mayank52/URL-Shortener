@@ -20,6 +20,7 @@ const shortenUrl = async (req, res) => {
   if (validUrl.isUri(longUrl)) {
     try {
       let url = await Url.findOne({ longUrl });
+      console.log(url);
 
       // if it already exists
       if (url) {
@@ -33,6 +34,7 @@ const shortenUrl = async (req, res) => {
           longUrl,
           shortUrl,
           urlCode,
+          visitCount: 0,
           date: new Date(),
         });
 
@@ -55,6 +57,9 @@ const redirectUrl = async (req, res) => {
     console.log(url);
 
     if (url) {
+      url.visitCount++;
+      await url.save();
+
       return res.redirect(url.longUrl);
     } else {
       return res.status(404).json("No url found");
