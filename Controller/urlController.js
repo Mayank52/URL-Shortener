@@ -47,7 +47,7 @@ const shortenUrl = async (req, res) => {
       res.status(500).json("Server error");
     }
   } else {
-    res.status(401).json("Invalid long url");
+    res.status(200).json("Invalid url");
   }
 };
 
