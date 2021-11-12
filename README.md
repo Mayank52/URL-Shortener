@@ -1,5 +1,6 @@
 # Link Shortener
-An application to generate short urls.
+* An application to generate short urls.
+* Generated Urls depend on the base url. A shorter domain name will generate a shorter Url.
 
 #### Base URL: https://myminurl.herokuapp.com
 

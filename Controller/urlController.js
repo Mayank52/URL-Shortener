@@ -2,25 +2,21 @@ const validUrl = require("valid-url");
 const shortid = require("shortid");
 const config = require("config");
 const Url = require("../Model/urlModel");
+const fs = require('fs')
 
 const shortenUrl = async (req, res) => {
   const { longUrl } = req.body;
   const baseUrl = config.get("baseUrl");
-
-  // Create shortened url code
   const urlCode = shortid.generate();
 
-  // if long url is valid, then create the short url
   if (validUrl.isUri(longUrl)) {
     try {
       let url = await Url.findOne({ longUrl });
       console.log(url);
 
-      // if it already exists
       if (url) {
         res.json(url);
       }
-      // else make a new shortended url
       else {
         const shortUrl = baseUrl + "/" + urlCode;
 
@@ -64,5 +60,27 @@ const redirectUrl = async (req, res) => {
   }
 };
 
+const getAllUrls = async (req, res) => {
+  try {
+    const allUrls = await Url.find({});
+
+    let urlList = allUrls.map((url) => {
+      return {
+        longUrl: url.longUrl,
+        shortUrl: url.shortUrl,
+        visitCount: url.visitCount,
+      };
+    });
+
+    console.log(urlList);
+
+    fs.writeFileSync("UrlList.json", JSON.stringify(urlList));
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports.shortenUrl = shortenUrl;
 module.exports.redirectUrl = redirectUrl;
+module.exports.getAllUrls = getAllUrls;

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-// const { DB_LINK: db } = require("./secrets");
+const { DB_LINK: db } = require("./secrets");
 
-const db = process.env.DB_LINK;
+// const db = process.env.DB_LINK;
 
 const connectDB = async () => {
   try {
