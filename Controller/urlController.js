@@ -7,11 +7,6 @@ const shortenUrl = async (req, res) => {
   const { longUrl } = req.body;
   const baseUrl = config.get("baseUrl");
 
-  // Check if base url is valid
-  if (!validUrl.isUri(baseUrl)) {
-    return res.status(401).json("Invalid base url");
-  }
-
   // Create shortened url code
   const urlCode = shortid.generate();
 
