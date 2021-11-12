@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const connectDB = require("./config/db");
 const urlRouter = require("./Routes/urlRouter");
 const { redirectUrl } = require("./Controller/urlController");
 
 app.use(express.json());
+app.use(cors());
 
 // connect to db
 connectDB();
