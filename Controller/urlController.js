@@ -14,7 +14,6 @@ const shortenUrl = async (req, res) => {
 
   // Create shortened url code
   const urlCode = shortid.generate();
-  console.log(urlCode);
 
   // if long url is valid, then create the short url
   if (validUrl.isUri(longUrl)) {
